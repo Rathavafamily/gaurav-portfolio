@@ -39,16 +39,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Menu Toggle (Simplified)
+    // Mobile Menu Toggle
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('.nav');
 
-    if (menuBtn) {
+    if (menuBtn && nav) {
         menuBtn.addEventListener('click', () => {
-            // Basic toggle for mobile - ideally would toggle a class
-            // For this static version, we'll just log or could add a class if we styled the mobile menu fully
-            // Adding a simple alert as placeholder for "Menu functionality" since full mobile drawer CSS wasn't added
-            console.log("Toggle menu");
+            nav.classList.toggle('active');
+            const icon = menuBtn.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = menuBtn.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                }
+            });
         });
     }
 });
